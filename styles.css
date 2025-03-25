@@ -1,0 +1,63 @@
+/* CSS from Bookseller Template by Dewan Mukto, MuxAI 2025 */
+body {font-family: 'Poppins', sans-serif;background: linear-gradient(120deg, #ff9a9e, #fad0c4);margin: 0;padding: 0;color: #333;cursor: url('asset/diamond-cursor.cur'), auto;}
+
+.brand {display: flex;align-items: center;gap: 10px;margin-left: 20px;}.logo {width: 40px;height: 40px;}
+.site-title {font-family: 'Mochiy Pop One', sans-serif;font-size: 1.8rem;color: #fff;}
+nav {display: flex;justify-content: space-between;align-items: center;background: #333;padding: 15px;}
+nav ul {display: flex;justify-content: center;list-style: none;background: #333;padding: 15px;margin: 0;}
+nav ul li {margin: 0 15px;} nav ul li a {color: white;text-decoration: none;font-size: 18px;transition: color 0.3s;}
+nav ul li a:hover {color: #ff9a9e;}
+.pill-btn {background-color: #ff9a9e;color: white !important;padding: 10px 20px;border-radius: 30px;font-weight: 600;transition: 0.3s;}
+.pill-btn:hover {background-color: #f76c6c;}
+header {position: relative;text-align: center;min-height: 90vh;margin-top: 0;background: url('asset/Aris-Leoven-green-leaves.png') center/cover no-repeat;background-attachment: fixed;}
+
+h1 {font-size: 3rem;color: white;text-transform: uppercase;font-weight: 600;}
+
+/* .cta-phrase {font-family: 'Lora', serif;display: flex;align-items: center;justify-content: center;gap: 10px;margin-top: 100px;} */
+.cta-phrase {font-family: 'Lora', serif;display: flex;align-items: center;justify-content: center;gap: 10px;flex-direction: column;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);text-align: center;width: 100%;}
+
+.cta-phrase h2 {font-size: 3rem;color: #fff;font-weight: 600;text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);}.big-quote {font-size: 5rem;color: #fff;line-height: 1}
+.cta-buttons .btn {padding: 12px 25px;margin: 20px;background: white;border-radius: 30px;text-decoration: none;font-size: 18px;color: black;transition: background 0.3s, transform 0.3s;}
+.cta-buttons .btn:hover {background: #ff9a9e;color: white;transform: scale(1.1);}
+.glass-cta-container {display: inline-flex;align-items: center;gap: 20px;margin-top: 40px;padding: 20px 40px;background: rgba(255, 255, 255, 0.2);backdrop-filter: blur(10px);-webkit-backdrop-filter: blur(10px);border: 1px solid rgba(255, 255, 255, 0.2);border-radius: 40px;}
+
+.modal {display: none;position: fixed;z-index: 1000;left: 0;top: 0;width: 100%;height: 100%;overflow: auto;background: rgba(0, 0, 0, 0.5);justify-content: center;align-items: center;}
+.modal-content {background: white;padding: 30px;border-radius: 10px;width: 300px;text-align: center;box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);}
+.close-btn {position: absolute;top: 10px;right: 10px;font-size: 30px;color: #333;cursor: pointer;}
+.close-btn:hover {color: red;}
+
+input, textarea, select, button {width: 90%;padding: 10px;margin: 10px 0;border: 2px solid #ddd;border-radius: 5px;font-size: 16px;transition: all 0.3s ease;}
+input:focus, textarea:focus, select:focus {border-color: #ff9a9e;box-shadow: 0 0 5px rgba(255, 154, 158, 0.7);}
+button {background: #ff9a9e;color: white;border: none;cursor: pointer;transition: background 0.3s;}
+button:hover {background: #f76c6c;scale: 1.1;}
+
+.dropdown-menu {display: none;position: absolute;background: #444;list-style: none;padding: 10px;border-radius: 5px;top: 100%;left: 0;width: 180px;box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);}
+.dropdown:hover .dropdown-menu {display: block;}.dropdown-menu li {margin: 5px 0;}
+.dropdown-menu a {display: flex;justify-content: space-between;align-items: center;color: white;padding: 8px 10px;transition: 0.3s;}
+.dropdown-menu a:hover {background: #555;}.dropdown-menu i {font-size: 12px;}
+
+.carousel {width: 40%;position: relative;overflow: hidden;border-radius: 10px;box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.2);}
+.carousel img {width: 100%;display: none;position: absolute;transition: transform 0.6s ease-in-out;}.carousel img.active {display: block;transform: translateX(0);}
+@keyframes slideDeck {0% {transform: translateX(100%) scale(0.8);opacity: 0;}50% {transform: translateX(-10%) scale(0.9);opacity: 0.5;}100% {transform: translateX(0) scale(1);opacity: 1;}}
+
+.about-text {width: 60%;}.about-text h2 {font-size: 2rem;margin-bottom: 10px;}
+.about-text p {font-size: 1.1rem;line-height: 1.6;}
+
+@media (max-width: 768px) {nav ul {flex-direction: column;gap: 10px;}.about-container {flex-direction: column;text-align: center;}.carousel {width: 80%;}.about-text {width: 100%;}}
+
+.floating-books-container {position: absolute;top: 0;left: 0;width: 100%;height: 100%;pointer-events: none;overflow: hidden;}
+.floating-book {position: absolute;width: 240px;height: auto;transition: transform 0.4s ease-in-out;transform-origin: bottom center;}
+
+.particle {position: absolute;width: 10px;height: 10px;background: rgba(255, 255, 255, 0.5);border-radius: 50%;box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);animation: floatParticle 3s infinite ease-in-out;}
+@keyframes floatParticle {0% {transform: translateY(0) scale(1);opacity: 1;}50% {transform: translateY(-50px) scale(1.2);opacity: 0.6;}100% {transform: translateY(-100px) scale(0.8);opacity: 0;}}
+
+.messenger-btn {position: fixed;bottom: 20px;right: 20px;width: 50px;height: 50px;background: #0084FF;color: #fff;border-radius: 50%;display: flex;align-items: center;justify-content: center;text-decoration: none;
+font-size: 1.5rem;box-shadow: 0 4px 8px rgba(0,0,0,0.3);z-index: 9999;transition: transform 0.3s;}.messenger-btn:hover {transform: scale(1.1);}
+
+.sticky-footer {position: fixed;bottom: 10px;left: 10px;background: rgba(0,0,0,0.3);color: #fff;padding: 5px 10px;border-radius: 5px;font-size: 0.9rem;z-index: 9999;}
+
+body::before {content: '';position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: inherit;filter: invert(100%);opacity: 0.4;clip-path: circle(0% at 0 0);transition: clip-path 0.2s ease;pointer-events: none;}
+body:hover::before {clip-path: circle(10% at var(--mouse-x, 0px) var(--mouse-y, 0px));}
+
+#responseModal .modal-content {background: white;padding: 30px;border-radius: 10px;width: 80%;text-align: center;box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);}
+#responseModal {display: none;position: fixed;z-index: 1000;left: 0;top: 0;width: 100%;height: 100%;overflow: auto;background: rgba(0, 0, 0, 0.5);justify-content: center;align-items: center;}

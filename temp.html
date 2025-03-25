@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Admin Dashboard Specific Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            padding: 15px 20px;
+            color: white;
+        }
+
+        .admin-nav-left {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #ff6666;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .dashboard-container {
+            width: 90%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: #ddd;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .active-tab {
+            background: #ff9a9e;
+            color: white;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #ff9a9e;
+            color: white;
+        }
+
+        /* Search */
+        input[type="text"] {
+            width: 50%;
+            margin-bottom: 10px;
+        }
+
+    </style>
+    <script>
+        function showTab(tabId) {
+            document.getElementById('ordersTab').style.display = (tabId === 'orders') ? 'block' : 'none';
+            document.getElementById('completedTab').style.display = (tabId === 'completed') ? 'block' : 'none';
+
+            document.getElementById('ordersBtn').classList.toggle('active-tab', tabId === 'orders');
+            document.getElementById('completedBtn').classList.toggle('active-tab', tabId === 'completed');
+        }
+
+        function searchTable(inputId, tableId) {
+            let input = document.getElementById(inputId).value.toLowerCase();
+            let table = document.getElementById(tableId);
+            let rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName('td');
+                let match = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                rows[i].style.display = match ? '' : 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <nav>
+        <div class="admin-nav-left">
+            <span>Welcome, <?= htmlspecialchars($admin_user) ?></span>
+        </div>
+        <div>
+            <button class="pill-btn logout-btn" onclick="window.location.href='logout.php'">Log Out</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="tabs">
+            <button id="ordersBtn" class="tab-button active-tab" onclick="showTab('orders')">Orders</button>
+            <button id="completedBtn" class="tab-button" onclick="showTab('completed')">Completed Orders</button>
+        </div>
+
+        <!-- Orders Table -->
+        <div id="ordersTab" class="tab-content">
+            <input type="text" id="searchOrders" placeholder="Search Orders..." onkeyup="searchTable('searchOrders', 'ordersTable')">
+            <table id="ordersTable">
+                <tr>
+                    <th>Ref Code</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Update Status</th>
+                </tr>
+                <?php while ($row = $orders_result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['reference_code']) ?></td>
+                        <td><?= htmlspecialchars($row['title']) ?></td>
+                        <td><?= htmlspecialchars($row['author']) ?></td>
+                        <td><?= htmlspecialchars($row['customer_name']) ?></td>
+                        <td><?= htmlspecialchars($row['status']) ?></td>
+                        <td>
+                            <form method="POST">
+                                <input type="hidden" name="reference_code" value="<?= htmlspecialchars($row['reference_code']) ?>">
+                                <select name="status">
+                                    <option value="unpaid">Unpaid</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="on the way">On the Way</option>
+                                    <option value="delivered">Delivered</option>
+                                </select>
+                                <button type="submit">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
+
+        <!-- Completed Orders Table -->
+        <div id="completedTab" class="tab-content" style="display: none;">
+            <input type="text" id="searchCompleted" placeholder="Search Completed Orders..." onkeyup="searchTable('searchCompleted', 'completedTable')">
+            <table id="completedTable">
+                <tr>
+                    <th>Ref Code</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                </tr>
+                <?php while ($row = $completed_result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['reference_code']) ?></td>
+                        <td><?= htmlspecialchars($row['title']) ?></td>
+                        <td><?= htmlspecialchars($row['author']) ?></td>
+                        <td><?= htmlspecialchars($row['customer_name']) ?></td>
+                        <td><?= htmlspecialchars($row['status']) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
